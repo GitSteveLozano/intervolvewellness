@@ -84,8 +84,9 @@ Node 22 or newer.
 Every push to `main` triggers `.github/workflows/deploy.yml`, which builds the
 site and publishes it to GitHub Pages. Nothing to do by hand.
 
-**One-time setup:** in the repository's *Settings → Pages*, set **Source** to
-**GitHub Actions**.
+The workflow enables Pages and sets its source to GitHub Actions on the first
+run, so there is no manual *Settings → Pages* step. If that ever fails on a
+fork or a transferred repository, set **Source** to **GitHub Actions** by hand.
 
 ## Moving to a custom domain
 
