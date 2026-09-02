@@ -26,8 +26,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      # enablement turns Pages on and points it at Actions the first time this
-      # runs, so the repository needs no manual Settings > Pages step.
+      # enablement is a no-op once Pages exists. It only helps on accounts where
+      # GITHUB_TOKEN may create a Pages site; on this one it cannot, so Pages
+      # must be switched to the "GitHub Actions" source by hand once. See README.
       - uses: actions/configure-pages@v5
         with:
           enablement: true

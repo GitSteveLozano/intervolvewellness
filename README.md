@@ -84,9 +84,14 @@ Node 22 or newer.
 Every push to `main` triggers `.github/workflows/deploy.yml`, which builds the
 site and publishes it to GitHub Pages. Nothing to do by hand.
 
-The workflow enables Pages and sets its source to GitHub Actions on the first
-run, so there is no manual *Settings → Pages* step. If that ever fails on a
-fork or a transferred repository, set **Source** to **GitHub Actions** by hand.
+**One-time setup, and it cannot be automated:** go to
+[*Settings → Pages*](https://github.com/GitSteveLozano/intervolvewellness/settings/pages)
+and set **Source** to **GitHub Actions**.
+
+Creating a Pages site needs repository-admin rights, which the workflow's
+`GITHUB_TOKEN` does not have — `actions/configure-pages` fails with
+*"Resource not accessible by integration"* until a human flips that switch.
+Every run after that is automatic.
 
 ## Moving to a custom domain
 
