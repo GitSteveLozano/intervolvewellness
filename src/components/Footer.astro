@@ -34,7 +34,7 @@ const hasEmail = contact.email && !contact.email.startsWith('TODO');
   </div>
 
   <div class="shell ftr__base">
-    <p class="ftr__legal"><T text={legal.disclaimer} /></p>
+    {legal.disclaimer && <p class="ftr__legal"><T text={legal.disclaimer} /></p>}
     <p class="ftr__copy">© {year} {site.name}. All rights reserved.</p>
   </div>
 </footer>

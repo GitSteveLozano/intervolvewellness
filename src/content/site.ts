@@ -278,13 +278,16 @@ export const faq = {
 
 export const legal = {
   /**
-   * A sound general scope-of-practice note. TODO — have Eileen check it against
-   * what her insurer and certifying body actually require; those bodies often
-   * specify wording, and this is the one paragraph on the site with real
-   * consequences if it is wrong.
+   * Scope-of-practice note in the footer. Hidden while empty.
+   *
+   * Removed for now by request. Worth revisiting: she is a licensed RN
+   * offering a complementary therapy, and several certifying bodies and
+   * professional-liability insurers require a note on the website saying a
+   * session is not nursing or medical care. If hers does, they usually
+   * specify the wording — put theirs here rather than a paraphrase.
    */
-  disclaimer:
-    'Hypnotherapy is a complementary practice. It is not psychotherapy or medical care, and it is not a substitute for treatment from a qualified physician or mental health professional. Sessions do not create a nurse–patient relationship, and no outcome is guaranteed. If you are in crisis, please contact your doctor or your local emergency service.',
+  disclaimer: '',
+
   /** Optional credit line in About. Hidden while empty. */
   lineage: '',
 } as const;
