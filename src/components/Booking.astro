@@ -2,14 +2,17 @@
 import { booking, contact } from '../content/site';
 import { isTodo } from '../lib/text';
 
-// A scheduler only embeds once it has been configured with a real URL —
-// until then the section falls back to an email CTA and loads nothing
-// third-party at all.
-const hasUrl = Boolean(booking.url) && !isTodo(booking.url);
+// A scheduler only embeds once it has been configured with real events or a
+// real URL — until then the section falls back to an email CTA and loads
+// nothing third-party at all.
+const events = booking.provider === 'calendly' ? booking.events : [];
+const singleUrl = Boolean(booking.url) && !isTodo(booking.url);
+
 const configured =
-  booking.provider === 'cal'
-    ? Boolean(booking.calLink)          // Cal.com embeds by slug, not URL
-    : booking.provider !== 'none' && hasUrl;
+  booking.provider === 'calendly' ? events.length > 0
+  : booking.provider === 'cal' ? Boolean(booking.calLink)
+  : booking.provider === 'acuity' ? singleUrl
+  : false;
 
 const acuitySrc =
   booking.provider === 'acuity' && configured
@@ -25,16 +28,37 @@ const acuitySrc =
 
     {configured ? (
       <div class="book__embed">
-        {booking.provider === 'cal' && (
-          <div id="cal-inline" data-cal-link={booking.calLink} data-cal-url={booking.url}></div>
-        )}
-
         {booking.provider === 'calendly' && (
-          <div
-            class="calendly-inline-widget"
-            data-url={booking.url}
-            style="min-width:320px;height:760px"
-          ></div>
+          <>
+            {events.length > 1 && (
+              <div class="picker" role="tablist" aria-label="Choose a session type">
+                {events.map((event, i) => (
+                  <button
+                    class="picker__tab"
+                    type="button"
+                    role="tab"
+                    id={`tab-${i}`}
+                    aria-selected={i === 0 ? 'true' : 'false'}
+                    aria-controls="calendly-host"
+                    data-url={event.url}
+                  >
+                    <span class="picker__label">{event.label}</span>
+                    <span class="picker__meta">{event.meta}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <div
+              id="calendly-host"
+              class="calendly-inline-widget"
+              role="tabpanel"
+              aria-labelledby="tab-0"
+              data-url={events[0].url}
+              data-first={events[0].url}
+              style="min-width:320px;height:760px"
+            ></div>
+          </>
         )}
 
         {booking.provider === 'acuity' && (
@@ -48,6 +72,10 @@ const acuitySrc =
           ></iframe>
         )}
 
+        {booking.provider === 'cal' && (
+          <div id="cal-inline" data-cal-link={booking.calLink}></div>
+        )}
+
         <p class="book__alt">
           Trouble with the scheduler?
           <a href={`mailto:${contact.email}`}>Email instead</a>.
@@ -57,8 +85,8 @@ const acuitySrc =
       <div class="book__fallback">
         <p class="book__fallback-note">
           <strong>Scheduler not connected yet.</strong>
-          Set <code>booking.provider</code> and <code>booking.url</code> in
-          <code>src/content/site.ts</code> to embed Cal.com, Calendly or Acuity here.
+          Set <code>booking.provider</code> and its events or URL in
+          <code>src/content/site.ts</code> to embed a scheduler here.
         </p>
         <a class="btn btn--primary" href={`mailto:${contact.email}`}>Email to arrange a session</a>
       </div>
@@ -70,40 +98,45 @@ const acuitySrc =
   <script is:inline defer src="https://assets.calendly.com/assets/external/widget.js"></script>
 )}
 
-{booking.provider === 'cal' && configured && (
+{booking.provider === 'calendly' && configured && (
   <script is:inline>
-    (function (C, A, L) {
-      let p = function (a, ar) { a.q.push(ar); };
-      let d = C.document;
-      C.Cal = C.Cal || function () {
-        let cal = C.Cal; let ar = arguments;
-        if (!cal.loaded) {
-          cal.ns = {}; cal.q = cal.q || [];
-          d.head.appendChild(d.createElement('script')).src = A;
-          cal.loaded = true;
-        }
-        if (ar[0] === L) {
-          const api = function () { p(api, arguments); };
-          const namespace = ar[1];
-          api.q = api.q || [];
-          if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); }
-          else { p(cal, ar); }
-          return;
-        }
-        p(cal, ar);
-      };
-    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+    (function () {
+      const host = document.getElementById('calendly-host');
+      const tabs = Array.from(document.querySelectorAll('.picker__tab'));
+      if (!host || tabs.length < 2) return;
 
-    const host = document.getElementById('cal-inline');
-    if (host) {
-      window.Cal('init', { origin: 'https://cal.com' });
-      window.Cal('inline', {
-        elementOrSelector: '#cal-inline',
-        calLink: host.dataset.calLink,
-        config: { layout: 'month_view' },
+      // Calendly auto-initialises the first widget from its data-url. Swapping
+      // events means emptying the container and asking it to initialise again,
+      // so wait for the script rather than assuming it has loaded.
+      const whenReady = (fn) => {
+        if (window.Calendly) return fn();
+        const timer = setInterval(() => {
+          if (!window.Calendly) return;
+          clearInterval(timer);
+          fn();
+        }, 100);
+        setTimeout(() => clearInterval(timer), 15000);
+      };
+
+      let current = host.dataset.first;
+
+      const show = (url) => {
+        if (url === current) return;
+        current = url;
+        whenReady(() => {
+          host.innerHTML = '';
+          window.Calendly.initInlineWidget({ url, parentElement: host });
+        });
+      };
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+          host.setAttribute('aria-labelledby', tab.id);
+          show(tab.dataset.url);
+        });
       });
-      window.Cal('ui', { hideEventTypeDetails: false, layout: 'month_view' });
-    }
+    })();
   </script>
 )}
 
@@ -125,33 +158,67 @@ const acuitySrc =
   }
   .book__embed iframe { display: block; border: 0; }
 
+  .picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+    background: var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .picker__tab {
+    flex: 1 1 12rem;
+    display: grid;
+    gap: 0.2rem;
+    padding: 1.1rem 1rem;
+    background: var(--ground-2);
+    border: 0;
+    border-bottom: 2px solid transparent;
+    font-family: inherit;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .picker__tab:hover { color: var(--ink); }
+  .picker__tab[aria-selected='true'] {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+  .picker__label {
+    font-family: var(--display);
+    font-size: var(--step-1);
+    line-height: 1.2;
+  }
+  .picker__meta {
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
   .book__alt {
     padding: 1rem;
     font-size: var(--step--1);
     background: var(--ground-2);
     color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
   }
   .book__alt a { margin-left: 0.4em; }
 
   .book__fallback {
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
     padding: clamp(1.75rem, 4vw, 3rem);
-    border: 1px dashed rgba(242, 235, 226, 0.32);
+    border: 1px dashed rgba(242, 241, 237, 0.32);
     border-radius: var(--radius-lg);
     display: grid;
     gap: 1.75rem;
     justify-items: center;
   }
-  .book__fallback-note {
-    max-width: 52ch;
-    font-size: var(--step--1);
-    line-height: 1.7;
-  }
+  .book__fallback-note { max-width: 52ch; font-size: var(--step--1); line-height: 1.7; }
   .book__fallback-note strong { display: block; color: var(--accent-lift); }
   .book__fallback code {
     font-size: 0.9em;
     padding: 0.1em 0.4em;
     border-radius: 3px;
-    background: rgba(242, 235, 226, 0.12);
+    background: rgba(242, 241, 237, 0.12);
   }
 </style>

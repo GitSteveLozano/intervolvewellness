@@ -31,10 +31,23 @@ disappears the moment you replace the text.
 
 ## Adding her photo
 
-Save a portrait as `public/images/portrait.jpg` — roughly 900×1125 (4:5), under
-400 kB. The dashed placeholder in the About section disappears on its own once
-the file exists. Then write a real `about.portraitAlt` description for screen
-readers.
+Save the portrait as **`public/images/portrait.jpg`** — the exact path matters.
+The dashed placeholder in the About section disappears on its own once the file
+exists; nothing else needs changing, and `about.portraitAlt` is already written.
+
+The easiest route without a local clone is GitHub's web uploader: open
+[`public/images/`](https://github.com/GitSteveLozano/intervolvewellness/upload/main/public/images),
+drag the file in, name it `portrait.jpg`, and commit to `main`. The deploy runs
+by itself.
+
+Before uploading, resize it. Phone and camera exports are often 3–8 MB, which
+is the single easiest way to make a fast site feel slow on mobile. Aim for
+**about 1200 px wide and under 300 kB** — any image tool will do it, and the
+frame only ever renders about 600 px wide.
+
+The frame is 4:5 and crops from the sides, so centre her in the original. If a
+crop sits badly, add `object-position` to `.about__figure img` in
+`src/components/About.astro`.
 
 ## Connecting the booking calendar
 

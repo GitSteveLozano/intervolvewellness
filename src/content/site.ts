@@ -41,10 +41,37 @@ export const contact = {
  */
 export const booking = {
   provider: 'calendly' as 'cal' | 'calendly' | 'acuity' | 'none',
-  url: 'https://calendly.com/intervolvewellness',
+
+  /**
+   * The events that belong on the public site, and nothing else.
+   *
+   * Embedding her Calendly *profile* page instead would list every event type
+   * on the account — including private ones like personal or trade sessions.
+   * Naming the events explicitly means a new private event can never appear
+   * here by accident. Anything added to this array is public.
+   *
+   * This does not hide those events on calendly.com itself. Mark them "Secret"
+   * in Calendly so they stay off her public booking page everywhere.
+   */
+  events: [
+    {
+      label: 'Hypno session',
+      meta: '90 minutes · $200',
+      url: 'https://calendly.com/intervolvewellness/new-meeting',
+    },
+    {
+      label: 'Clarity call',
+      meta: '15 minutes · Free',
+      url: 'https://calendly.com/intervolvewellness/discovery-call',
+    },
+  ],
+
+  /** Used by the cal.com and acuity providers, which embed a single URL. */
+  url: '',
   calLink: '',
+
   heading: 'Book a session',
-  body: 'Start with a free clarity call if you are not sure, or go straight to a full session. Both open in the calendar below.',
+  body: 'Choose a full session, or start with a free clarity call if you are not sure yet.',
 } as const;
 
 export const hero = {
@@ -196,9 +223,14 @@ export const about = {
     'TODO — her hypnotherapy training and lineage, including her teacher.',
     'At Intervolve, every part of you is met with care. In a space rooted in safety and intention, healing unfolds at your own pace, allowing true evolution to emerge.',
   ],
-  /** Drop a photo at public/images/portrait.jpg and the placeholder disappears. */
+  /**
+   * Drop a photo at public/images/portrait.jpg and the dashed placeholder is
+   * replaced automatically — the file's presence is checked at build time.
+   * The frame is 4:5 and crops from the sides, so centre her in the original.
+   */
   portrait: '/images/portrait.jpg',
-  portraitAlt: 'TODO — describe the portrait for screen readers',
+  portraitAlt:
+    'Eileen Silot seated on a sofa in a white lace blouse and jeans, one arm resting along the cushions, smiling gently at the camera.',
   credentials: [
     'Registered Nurse',
     'Trauma-informed practice',
