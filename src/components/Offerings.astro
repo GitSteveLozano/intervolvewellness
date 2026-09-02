@@ -10,7 +10,7 @@ import T from './T.astro';
       <h2>{offerings.heading}</h2>
     </div>
 
-    <div class="cards">
+    <div class:list={['cards', { 'cards--few': offerings.items.length < 3 }]}>
       {offerings.items.map((item, i) => (
         <article
           class:list={['card', 'reveal', { 'card--featured': item.featured }]}
@@ -54,7 +54,12 @@ import T from './T.astro';
     gap: clamp(1.25rem, 2.5vw, 2rem);
     align-items: stretch;
   }
-  @media (min-width: 52rem) { .cards { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 52rem) {
+    .cards { grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+    /* Two cards stretched across a 1440px viewport read as slabs, so the grid
+       is capped and centred whenever there are fewer than three. */
+    .cards--few { max-width: 54rem; margin-inline: auto; }
+  }
 
   .card {
     display: flex;

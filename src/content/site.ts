@@ -126,6 +126,16 @@ export const helpsWith = {
  *   flag     : optional small badge above the name. Left empty on purpose —
  *              a claim like "Most booked" is not true of a practice that has
  *              only just opened. Fill it in once it is.
+ *
+ * Only what Calendly can actually sell lives here. A multi-session package was
+ * drafted and removed for that reason: Calendly bills single events and cannot
+ * take one payment across four bookings, so the card would have been a price
+ * with no way to pay it. `git log` has the full card if it comes back — it
+ * needs a Stripe payment link, or a Calendly event collecting the whole sum up
+ * front, before it belongs on the page.
+ *
+ * The layout follows the count: two cards centre in a narrower grid, three or
+ * more spread across the full width.
  */
 export const offerings = {
   eyebrow: 'Ways to work together',
@@ -161,28 +171,6 @@ export const offerings = {
       cta: 'Book a session',
       href: 'https://calendly.com/intervolvewellness/new-meeting',
       featured: true,
-    },
-    {
-      name: 'Deep work series',
-      duration: 'Four × 90 minutes',
-      /** $700 for four: $175 a session, $100 less than booking them singly. */
-      price: '$700',
-      body: 'TODO — her description of the series. What sustained work makes possible that a single session cannot, and who it suits.',
-      includes: [
-        'Four 90-minute sessions',
-        'TODO — how the four are paced (weekly? fortnightly?)',
-        'TODO — is there an arc across the series, or four separate intentions?',
-        'TODO — anything between sessions',
-      ],
-      flag: '',
-      cta: 'Enquire about the series',
-      /**
-       * Deliberately email, not Calendly: her Calendly sells single events and
-       * cannot take payment for a package spread over four bookings. Point this
-       * at a scheduling link only once there is a way to actually buy it.
-       */
-      href: 'mailto:eileen@intervolve-wellness.com?subject=Deep%20work%20series',
-      featured: false,
     },
   ],
 } as const;
