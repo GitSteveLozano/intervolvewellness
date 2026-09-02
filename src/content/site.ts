@@ -268,10 +268,11 @@ export const legal = {
   lineage: 'TODO — e.g. "Trained in the Restorative Hypnosis tradition." Confirm with her before publishing.',
 } as const;
 
+/** Follows the order of the page itself, so the scroll-spy reads correctly. */
 export const nav = [
+  { label: 'About', href: '#about' },
   { label: 'The work', href: '#work' },
   { label: 'What it helps', href: '#helps' },
   { label: 'Sessions', href: '#offerings' },
-  { label: 'About', href: '#about' },
   { label: 'Questions', href: '#faq' },
 ] as const;

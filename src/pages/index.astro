@@ -32,13 +32,21 @@ ld.makesOffer = offerings.items
 <Base>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(ld)} />
 
+  {/*
+    Order matters more than usual here. Referrals are the main channel, so most
+    visitors arrive already told about Eileen by someone they trust — they are
+    not deciding whether hypnotherapy is real, they are deciding whether she is
+    safe to be vulnerable with. Resonance names their problem so they feel seen,
+    then About answers "who is this person" while they still care, and only then
+    does the page explain the modality and ask for the booking.
+  */}
   <Hero />
   <Resonance />
+  <About />
   <Work />
   <HelpsWith />
   <Offerings />
   <Journey />
-  <About />
   <Testimonials />
   <Faq />
   <Booking />
