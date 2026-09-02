@@ -15,8 +15,9 @@ export const site = {
   tagline: 'Trauma-informed hypnotherapy for whole-body healing',
   description:
     'Eileen Silot, RN and hypnotherapist. Trauma-informed care, yoga guidance and hypnotherapy, blended for deep holistic healing and whole-body transformation.',
-  url: 'https://gitstevelozano.github.io',
-  base: '/intervolvewellness',
+  url: 'https://intervolve-wellness.com',
+  /** Served from the domain root, so no path prefix. */
+  base: '',
   /** TODO — confirm: are sessions online only, or also in person? */
   location: 'TODO — e.g. Sessions held online',
 } as const;
@@ -26,7 +27,7 @@ export const contact = {
    * Custom address on her own domain. This mailbox has to actually exist before
    * launch — every "email me" CTA on the page points at it.
    */
-  email: 'eileen@intervolvewellness.com',
+  email: 'eileen@intervolve-wellness.com',
   instagram: 'https://www.instagram.com/intervolvewellness',
   instagramHandle: '@intervolvewellness',
   phone: '',
@@ -185,7 +186,7 @@ export const offerings = {
        * cannot take payment for a package spread over four bookings. Point this
        * at a scheduling link only once there is a way to actually buy it.
        */
-      href: 'mailto:eileen@intervolvewellness.com?subject=Four-session%20series',
+      href: 'mailto:eileen@intervolve-wellness.com?subject=Four-session%20series',
       featured: false,
     },
   ],

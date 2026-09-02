@@ -3,7 +3,7 @@
 A one-page site for Eileen Silot's hypnotherapy practice, built with
 [Astro](https://astro.build) and deployed to GitHub Pages.
 
-**Live:** https://gitstevelozano.github.io/intervolvewellness/
+**Live:** https://intervolve-wellness.com
 
 ---
 
@@ -78,7 +78,7 @@ npm run og
 
 ```sh
 npm install
-npm run dev      # http://localhost:4321/intervolvewellness/
+npm run dev      # http://localhost:4321/
 npm run build    # writes dist/
 npm run preview  # serve the built site
 ```
@@ -99,16 +99,28 @@ Creating a Pages site needs repository-admin rights, which the workflow's
 *"Resource not accessible by integration"* until a human flips that switch.
 Every run after that is automatic.
 
-## Moving to a custom domain
+## The domain
 
-When she buys a domain (say `intervolvewellness.com`):
+The site is served from `intervolve-wellness.com`. Three pieces make that work,
+and all three are already in place:
 
-1. Create `public/CNAME` containing just `intervolvewellness.com`.
-2. In `src/content/site.ts` set `url: 'https://intervolvewellness.com'` and
-   `base: ''`.
-3. At the domain registrar, point the apex `A` records at GitHub's four
-   Pages IPs and add a `CNAME` for `www` → `gitstevelozano.github.io`.
-4. In *Settings → Pages*, enter the domain and tick **Enforce HTTPS**.
+| Piece | Where | Value |
+|---|---|---|
+| `CNAME` file | `public/CNAME` | `intervolve-wellness.com` |
+| Apex DNS | registrar | four `A` records to `185.199.108–111.153` |
+| `www` DNS | registrar | `CNAME` to `gitstevelozano.github.io` |
+
+GitHub redirects `www` and the old `gitstevelozano.github.io/intervolvewellness/`
+address to the apex automatically, so old links keep working.
+
+If HTTPS ever shows a certificate warning, open *Settings → Pages*, confirm the
+custom domain is entered there, and tick **Enforce HTTPS**. GitHub reissues the
+certificate whenever the domain changes, which can take up to an hour.
+
+Note the hyphen. `intervolvewellness.com` (no hyphen) is a **different domain**
+and is not hers — her Instagram handle and Calendly slug have no hyphen, the
+domain and the email address do. Getting this wrong silently breaks every
+`mailto:` on the page.
 
 ## How it is put together
 
