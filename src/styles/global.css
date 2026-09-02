@@ -132,6 +132,23 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22e
 .section--deep {
   background: var(--ground-deep);
   color: var(--on-deep);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+/* The same texture lifts the flat dark bands so they read as a surface rather
+   than a fill. Sits behind everything and is never interactive. */
+.section--deep::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--texture);
+  background-size: cover;
+  background-position: 50% 50%;
+  mix-blend-mode: soft-light;
+  opacity: 0.28;
+  pointer-events: none;
 }
 .section--deep .eyebrow { color: var(--accent-lift); }
 .section--deep .lede, .section--deep p { color: var(--on-deep-soft); }

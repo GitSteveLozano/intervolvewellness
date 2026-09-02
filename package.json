@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "og": "node --experimental-strip-types scripts/make-og.mjs",
-    "image": "node scripts/optimize-image.mjs"
+    "image": "node scripts/optimize-image.mjs",
+    "texture": "node scripts/make-texture.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
