@@ -22,8 +22,11 @@ export const site = {
 } as const;
 
 export const contact = {
-  /** TODO — her contact address. The mailto CTAs stay hidden until this is real. */
-  email: 'TODO@example.com',
+  /**
+   * Custom address on her own domain. This mailbox has to actually exist before
+   * launch — every "email me" CTA on the page points at it.
+   */
+  email: 'eileen@intervolvewellness.com',
   instagram: 'https://www.instagram.com/intervolvewellness',
   instagramHandle: '@intervolvewellness',
   phone: '',
@@ -100,6 +103,13 @@ export const helpsWith = {
   ],
 } as const;
 
+/**
+ * Session offerings.
+ *   featured : draws the accent border and the filled button
+ *   flag     : optional small badge above the name. Left empty on purpose —
+ *              a claim like "Most booked" is not true of a practice that has
+ *              only just opened. Fill it in once it is.
+ */
 export const offerings = {
   eyebrow: 'Ways to work together',
   heading: 'Start where you are.',
@@ -108,8 +118,13 @@ export const offerings = {
       name: 'Clarity call',
       duration: '15 minutes',
       price: 'Free',
-      body: 'A short, no-pressure conversation to see whether this is right for you.',
-      includes: ['A conversation about what brought you here', 'Space for every question', 'No obligation to book'],
+      body: 'A focused, supportive space to get clear on where you are, what you’re navigating and what you’d like support with. We’ll explore your goals, any questions you may have and feel into whether working together is the right next step.',
+      includes: [
+        'Space to name what you’re navigating',
+        'Your goals, and any questions you have',
+        'A sense of whether we’re the right fit',
+      ],
+      flag: '',
       cta: 'Book a clarity call',
       href: 'https://calendly.com/intervolvewellness/discovery-call',
       featured: false,
@@ -117,9 +132,15 @@ export const offerings = {
     {
       name: 'Hypno session',
       duration: '90 minutes',
-      price: 'TODO — $000',
-      body: 'A full guided journey into the subconscious, for one clear intention.',
-      includes: ['Intention setting and intake', 'A full guided hypnosis journey', 'TODO — is a recording included?', 'TODO — integration notes or follow-up?'],
+      price: '$200',
+      body: 'A deeply immersive session designed to create powerful, subconscious shifts. We’ll begin by clarifying your intention, then gently guide you into a relaxed, focused state where we can rewire limiting beliefs, release emotional blocks, and anchor in new patterns that support who you’re becoming.',
+      includes: [
+        'Clarifying your intention together',
+        'A guided, deeply relaxed and focused state',
+        'Releasing emotional blocks at the root',
+        'TODO — is a recording included?',
+      ],
+      flag: '',
       cta: 'Book a session',
       href: 'https://calendly.com/intervolvewellness/new-meeting',
       featured: true,
@@ -128,8 +149,9 @@ export const offerings = {
       name: 'Deep work series',
       duration: 'TODO — how many sessions?',
       price: 'TODO — $000',
-      body: 'TODO — sustained work for patterns that have been in place a long time. Delete this card if she is not offering a package yet.',
+      body: 'TODO — sustained work for patterns that have been in place a long time. If she is not offering a package yet, delete this whole card: two clear options convert better than three, one of which is vague.',
       includes: ['TODO — what the series includes', 'TODO — a tailored arc across the sessions', 'TODO — support between sessions'],
+      flag: '',
       cta: 'Enquire',
       href: '#book',
       featured: false,

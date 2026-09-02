@@ -16,7 +16,7 @@ import T from './T.astro';
           class:list={['card', 'reveal', { 'card--featured': item.featured }]}
           style={`transition-delay:${i * 90}ms`}
         >
-          {item.featured && <p class="card__flag">Most booked</p>}
+          {item.flag && <p class="card__flag">{item.flag}</p>}
 
           <header class="card__head">
             <h3>{item.name}</h3>
