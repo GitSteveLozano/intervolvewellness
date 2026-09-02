@@ -86,14 +86,14 @@ export const hero = {
 export const resonance = {
   heading: 'You have done the work. Something still has not moved.',
   intro:
-    'TODO — a short lead-in in her voice, acknowledging where someone is when they find this page.',
+    'Most people arrive here having already tried a great deal. That effort was not wasted — it is often what makes this next part possible.',
   items: [
     'You have done the talk therapy, the breathwork, the journalling — and something still has not shifted.',
     'You understand your patterns intellectually, but they keep running anyway.',
     'A feeling lives in your body that talking has never quite reached.',
     'You are ready to meet what is underneath, gently and with support.',
   ],
-  close: 'TODO — one sentence turning towards hope.',
+  close: 'You are not here to be fixed. You are here to meet what has been waiting.',
 } as const;
 
 export const work = {
@@ -120,8 +120,7 @@ export const work = {
       body: 'Subconscious mind reconditioning aimed at whole-body transformation and emotional release.',
     },
   ],
-  /** TODO — one short paragraph on how the three combine inside a session. */
-  close: 'TODO — how these three meet in practice, in her voice.',
+  close: 'These are not three separate offerings. What a session needs — steadiness, movement, or depth — is what it receives.',
 } as const;
 
 /**
@@ -132,7 +131,7 @@ export const work = {
 export const helpsWith = {
   eyebrow: 'What it can help with',
   heading: 'What people bring to a session.',
-  intro: 'TODO — one sentence introducing the list, and an invitation to ask about anything not on it.',
+  intro: 'People rarely arrive with only one thing. If what brought you here is not listed, it is still worth asking about.',
   items: [
     'TODO — her most-worked-with topic',
     'TODO — second most common',
@@ -206,11 +205,26 @@ export const journey = {
   eyebrow: 'What to expect',
   heading: 'A session, step by step.',
   steps: [
-    { title: 'We talk first', body: 'TODO — what the opening conversation covers, and how an intention is set.' },
-    { title: 'You settle', body: 'TODO — the induction, and what the state actually feels like.' },
-    { title: 'We go to the root', body: 'TODO — the heart of the session. Note that you stay talking with her throughout.' },
-    { title: 'Something is offered back', body: 'TODO — the repair, resource or release.' },
-    { title: 'You return, slowly', body: 'TODO — coming back, and how integration is supported afterwards.' },
+    {
+      title: 'We talk first',
+      body: 'We begin with what brought you here, and shape it into a clear intention for the session.',
+    },
+    {
+      title: 'You settle',
+      body: 'I guide you into a relaxed, focused state. You stay awake and aware the whole time — most people describe it as deeply settled rather than asleep.',
+    },
+    {
+      title: 'We go to the root',
+      body: 'From there we follow what surfaces, working with limiting beliefs and the emotional blocks holding them in place. We stay in conversation throughout, so you are never somewhere I cannot reach you.',
+    },
+    {
+      title: 'Something is offered back',
+      body: 'Where something is released, something is anchored in its place — new patterns that support who you are becoming.',
+    },
+    {
+      title: 'You return, slowly',
+      body: 'We come back gently, and leave time to talk through what came up before you go.',
+    },
   ],
 } as const;
 
@@ -242,29 +256,50 @@ export const about = {
 export const testimonials = {
   eyebrow: 'In their words',
   heading: 'What people carry away.',
-  items: [
-    { quote: 'TODO — a real client testimonial, used with permission.', attribution: 'TODO — first name, initial' },
-    { quote: 'TODO — a second testimonial.', attribution: 'TODO — first name, initial' },
-    { quote: 'TODO — a third testimonial.', attribution: 'TODO — first name, initial' },
-  ],
+  /**
+   * The whole section hides itself while this is empty, which is the right
+   * default: three placeholder quotes read worse than no testimonials at all,
+   * and invented ones are not an option. Add real quotes, with permission and
+   * a first name, and the section reappears.
+   */
+  items: [] as { quote: string; attribution: string }[],
 } as const;
 
 export const faq = {
   eyebrow: 'Questions',
   heading: 'Before you book.',
   items: [
-    { q: 'Will I be unconscious or out of control?', a: 'TODO — no. Explain what the state is really like, and that you stay in conversation throughout.' },
-    { q: 'What if I cannot be hypnotised?', a: 'TODO — reassure. Most people can; explain how it is guided.' },
-    { q: 'Do I have to relive something painful?', a: 'TODO — explain pacing and consent within a session. This one matters most for trauma-informed work.' },
+    {
+      q: 'Will I be unconscious or out of control?',
+      a: 'No. Hypnosis is a state of focused attention, not sleep, and you keep every bit of your own judgement. You will be awake, aware, able to speak, and able to stop at any point. We talk to each other the whole way through — that is what makes the work yours rather than something done to you.',
+    },
+    {
+      q: 'What if I cannot be hypnotised?',
+      a: 'It is a state most people move into readily, and it is closer to ordinary experience than it sounds — losing an hour in a book, or arriving somewhere without remembering the drive. You are not required to produce anything. I guide, and we work with whatever comes.',
+    },
+    {
+      q: 'Do I have to relive something painful?',
+      a: 'No. Trauma-informed practice means we go at the pace your system allows, not the pace the story wants. You choose what we approach and how close we get, you can say stop at any moment, and we can work with something without moving back into the middle of it.',
+    },
     { q: 'How many sessions will I need?', a: 'TODO — honest answer, with ranges.' },
-    { q: 'Is this therapy? Is it medical care?', a: 'TODO — scope of practice, what her RN training does and does not mean here, and when she refers out.' },
+    {
+      q: 'Is this therapy? Is it medical care?',
+      a: 'Neither. Hypnotherapy is a complementary practice; it is not psychotherapy, and a session is not nursing or medical care. My clinical background shapes how safely a session is held, but I am not acting as your nurse and nothing here replaces treatment from your doctor or therapist. Where something belongs with one of them, I will say so.',
+      // TODO — confirm this wording matches what her insurer and certifying body require.
+    },
     { q: 'How do online sessions work?', a: 'TODO — the platform, and what someone needs: a private space, wired headphones with a mic, a good connection.' },
   ],
 } as const;
 
 export const legal = {
+  /**
+   * A sound general scope-of-practice note. TODO — have Eileen check it against
+   * what her insurer and certifying body actually require; those bodies often
+   * specify wording, and this is the one paragraph on the site with real
+   * consequences if it is wrong.
+   */
   disclaimer:
-    'TODO — a plain scope-of-practice note. Hypnotherapy is a complementary practice and is not a substitute for medical or psychological treatment. Sessions are not nursing care and do not create a nurse–patient relationship.',
+    'Hypnotherapy is a complementary practice. It is not psychotherapy or medical care, and it is not a substitute for treatment from a qualified physician or mental health professional. Sessions do not create a nurse–patient relationship, and no outcome is guaranteed. If you are in crisis, please contact your doctor or your local emergency service.',
   lineage: 'TODO — e.g. "Trained in the Restorative Hypnosis tradition." Confirm with her before publishing.',
 } as const;
 
