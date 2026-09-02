@@ -1,0 +1,161 @@
+---
+import { booking, contact } from '../content/site';
+import { isTodo } from '../lib/text';
+
+// A scheduler only embeds once it has been configured with a real URL —
+// until then the section falls back to an email CTA and loads nothing
+// third-party at all.
+const hasUrl = Boolean(booking.url) && !isTodo(booking.url);
+const configured =
+  booking.provider === 'cal'
+    ? Boolean(booking.calLink)          // Cal.com embeds by slug, not URL
+    : booking.provider !== 'none' && hasUrl;
+
+const acuitySrc =
+  booking.provider === 'acuity' && configured
+    ? `${booking.url}${booking.url.includes('?') ? '&' : '?'}embedded=true`
+    : '';
+---
+
+<section class="section section--deep" id="book">
+  <div class="shell shell--narrow book">
+    <p class="eyebrow">Booking</p>
+    <h2>{booking.heading}</h2>
+    <p class="lede">{booking.body}</p>
+
+    {configured ? (
+      <div class="book__embed">
+        {booking.provider === 'cal' && (
+          <div id="cal-inline" data-cal-link={booking.calLink} data-cal-url={booking.url}></div>
+        )}
+
+        {booking.provider === 'calendly' && (
+          <div
+            class="calendly-inline-widget"
+            data-url={booking.url}
+            style="min-width:320px;height:760px"
+          ></div>
+        )}
+
+        {booking.provider === 'acuity' && (
+          <iframe
+            src={acuitySrc}
+            title="Schedule a session"
+            width="100%"
+            height="800"
+            frameborder="0"
+            loading="lazy"
+          ></iframe>
+        )}
+
+        <p class="book__alt">
+          Trouble with the scheduler?
+          <a href={`mailto:${contact.email}`}>Email instead</a>.
+        </p>
+      </div>
+    ) : (
+      <div class="book__fallback">
+        <p class="book__fallback-note">
+          <strong>Scheduler not connected yet.</strong>
+          Set <code>booking.provider</code> and <code>booking.url</code> in
+          <code>src/content/site.ts</code> to embed Cal.com, Calendly or Acuity here.
+        </p>
+        <a class="btn btn--primary" href={`mailto:${contact.email}`}>Email to arrange a session</a>
+      </div>
+    )}
+  </div>
+</section>
+
+{booking.provider === 'calendly' && configured && (
+  <script is:inline defer src="https://assets.calendly.com/assets/external/widget.js"></script>
+)}
+
+{booking.provider === 'calendly' && configured && (
+  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
+)}
+
+{booking.provider === 'cal' && configured && (
+  <script is:inline>
+    (function (C, A, L) {
+      let p = function (a, ar) { a.q.push(ar); };
+      let d = C.document;
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal; let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {}; cal.q = cal.q || [];
+          d.head.appendChild(d.createElement('script')).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); }
+          else { p(cal, ar); }
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+    const host = document.getElementById('cal-inline');
+    if (host) {
+      window.Cal('init', { origin: 'https://cal.com' });
+      window.Cal('inline', {
+        elementOrSelector: '#cal-inline',
+        calLink: host.dataset.calLink,
+        config: { layout: 'month_view' },
+      });
+      window.Cal('ui', { hideEventTypeDetails: false, layout: 'month_view' });
+    }
+  </script>
+)}
+
+<style>
+  .book { text-align: center; }
+  .book h2 { font-size: var(--step-4); }
+  .book .lede {
+    margin: 1.25rem auto 0;
+    max-width: 44ch;
+    font-size: var(--step-1);
+  }
+
+  .book__embed {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    background: var(--ground-2);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    min-height: 30rem;
+  }
+  .book__embed iframe { display: block; border: 0; }
+
+  .book__alt {
+    padding: 1rem;
+    font-size: var(--step--1);
+    background: var(--ground-2);
+    color: var(--ink-soft);
+  }
+  .book__alt a { margin-left: 0.4em; }
+
+  .book__fallback {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding: clamp(1.75rem, 4vw, 3rem);
+    border: 1px dashed rgba(242, 235, 226, 0.32);
+    border-radius: var(--radius-lg);
+    display: grid;
+    gap: 1.75rem;
+    justify-items: center;
+  }
+  .book__fallback-note {
+    max-width: 52ch;
+    font-size: var(--step--1);
+    line-height: 1.7;
+  }
+  .book__fallback-note strong { display: block; color: var(--accent-lift); }
+  .book__fallback code {
+    font-size: 0.9em;
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    background: rgba(242, 235, 226, 0.12);
+  }
+</style>

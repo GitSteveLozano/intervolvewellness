@@ -1,0 +1,204 @@
+---
+import { site, nav, hero } from '../content/site';
+---
+
+<header class="hdr" data-header>
+  <div class="hdr__inner shell">
+    <a class="mark" href="#top">
+      <span class="mark__name">{site.name}</span>
+      {site.practitioner && <span class="mark__cred">{site.practitioner}</span>}
+    </a>
+
+    <nav class="nav" aria-label="Sections">
+      <ul class="nav__list">
+        {nav.map((item) => (
+          <li>
+            <a class="nav__link" href={item.href} data-spy={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a class="btn btn--primary hdr__cta" href={hero.primaryCta.href}>{hero.primaryCta.label}</a>
+
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu" data-burger>
+      <span class="visually-hidden">Menu</span>
+      <span class="burger__bar" aria-hidden="true"></span>
+      <span class="burger__bar" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="menu" id="menu" hidden data-menu>
+    <ul class="menu__list">
+      {nav.map((item) => (
+        <li><a href={item.href}>{item.label}</a></li>
+      ))}
+      <li><a href={hero.primaryCta.href}>{hero.primaryCta.label}</a></li>
+    </ul>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--ground) 82%, transparent);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .hdr[data-scrolled] { border-bottom-color: var(--rule); }
+
+  .hdr__inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 4.5rem;
+  }
+
+  .mark {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    margin-right: auto;
+    line-height: 1.15;
+  }
+  .mark__name {
+    font-family: var(--display);
+    font-size: var(--step-1);
+    letter-spacing: -0.01em;
+  }
+  .mark__cred {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .nav { display: none; }
+  @media (min-width: 62rem) { .nav { display: block; } }
+
+  .nav__list {
+    display: flex;
+    gap: clamp(1rem, 2.2vw, 2rem);
+    list-style: none;
+    padding: 0;
+  }
+  .nav__link {
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding-block: 0.4rem;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .nav__link:hover { color: var(--ink); }
+  .nav__link[aria-current='true'] {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  .hdr__cta { display: none; padding: 0.7em 1.4em; font-size: var(--step--1); }
+  @media (min-width: 48rem) { .hdr__cta { display: inline-flex; } }
+
+  .burger {
+    display: grid;
+    place-content: center;
+    gap: 6px;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  @media (min-width: 62rem) { .burger { display: none; } }
+
+  .burger__bar {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--ink);
+    transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  }
+  .burger[aria-expanded='true'] .burger__bar:first-child { transform: translateY(3.75px) rotate(45deg); }
+  .burger[aria-expanded='true'] .burger__bar:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+
+  .menu { border-top: 1px solid var(--rule); background: var(--ground); }
+  .menu__list { list-style: none; margin: 0; padding: 1rem var(--gutter) 2rem; }
+  .menu__list li + li { border-top: 1px solid var(--rule); }
+  .menu__list a {
+    display: block;
+    padding: 0.95rem 0;
+    font-family: var(--display);
+    font-size: var(--step-2);
+    text-decoration: none;
+  }
+  @media (min-width: 62rem) { .menu { display: none; } }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const burger = document.querySelector<HTMLButtonElement>('[data-burger]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+
+  // Hairline rule appears only once the page has moved.
+  if (header) {
+    const onScroll = () => {
+      header.toggleAttribute('data-scrolled', window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // Mobile menu.
+  if (burger && menu) {
+    const setOpen = (open: boolean) => {
+      burger.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+    };
+    burger.addEventListener('click', () => {
+      setOpen(burger.getAttribute('aria-expanded') !== 'true');
+    });
+    menu.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        burger.focus();
+      }
+    });
+  }
+
+  // Scroll-spy: mark the nav link for whichever section owns the viewport.
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-spy]'));
+  const sections = links
+    .map((link) => document.querySelector<HTMLElement>(link.dataset.spy!))
+    .filter((el): el is HTMLElement => Boolean(el));
+
+  if (sections.length && 'IntersectionObserver' in window) {
+    const visible = new Set<string>();
+    const spy = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = `#${entry.target.id}`;
+          if (entry.isIntersecting) visible.add(id);
+          else visible.delete(id);
+        }
+        // The first section in document order that is on screen wins.
+        const active = sections.map((s) => `#${s.id}`).find((id) => visible.has(id));
+        for (const link of links) {
+          if (link.dataset.spy === active) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        }
+      },
+      { rootMargin: '-30% 0px -55% 0px' },
+    );
+    sections.forEach((s) => spy.observe(s));
+  }
+</script>

@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../content/site';
+---
+
+<Base title={`Not found — ${site.name}`} description="This page does not exist.">
+  <section class="section lost">
+    <div class="shell shell--narrow">
+      <p class="eyebrow">404</p>
+      <h1>This path does not go anywhere.</h1>
+      <p class="lede">The page you were looking for has moved or never existed.</p>
+      <a class="btn btn--primary" href={import.meta.env.BASE_URL}>Back to the beginning</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lost { min-height: 70svh; display: grid; align-items: center; text-align: center; }
+  .lost h1 { font-size: var(--step-5); }
+  .lost .lede { margin: 1.25rem auto 2.5rem; max-width: 40ch; color: var(--ink-soft); }
+</style>

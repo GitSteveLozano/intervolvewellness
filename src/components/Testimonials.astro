@@ -1,0 +1,62 @@
+---
+import { testimonials } from '../content/site';
+import T from './T.astro';
+---
+
+{testimonials.items.length > 0 && (
+  <section class="section section--deep" id="testimonials">
+    <div class="shell">
+      <div class="section-head reveal">
+        <p class="eyebrow">{testimonials.eyebrow}</p>
+        <h2>{testimonials.heading}</h2>
+      </div>
+
+      <div class="quotes">
+        {testimonials.items.map((item, i) => (
+          <figure class="quote reveal" style={`transition-delay:${i * 100}ms`}>
+            <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+            <blockquote><p><T text={item.quote} /></p></blockquote>
+            <figcaption>— <T text={item.attribution} /></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .quotes { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
+  @media (min-width: 54rem) { .quotes { grid-template-columns: repeat(3, 1fr); } }
+
+  .quote {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    border: 1px solid rgba(242, 235, 226, 0.18);
+    border-radius: var(--radius-lg);
+    margin: 0;
+  }
+
+  .quote__mark {
+    font-family: var(--display);
+    font-size: 3rem;
+    line-height: 0.6;
+    color: var(--accent-lift);
+  }
+
+  .quote blockquote p {
+    font-family: var(--display);
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--on-deep);
+  }
+
+  .quote figcaption {
+    margin-top: auto;
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--on-deep-soft);
+  }
+</style>

@@ -1,0 +1,7 @@
+---
+// Renders a string from site.ts, visibly flagging anything still unwritten.
+import { isTodo } from '../lib/text';
+interface Props { text: string; }
+const { text } = Astro.props;
+---
+{isTodo(text) ? <span class="todo" title="Placeholder — replace in src/content/site.ts">{text}</span> : text}

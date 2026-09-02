@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Resonance from '../components/Resonance.astro';
+import Work from '../components/Work.astro';
+import Offerings from '../components/Offerings.astro';
+import Journey from '../components/Journey.astro';
+import About from '../components/About.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import Booking from '../components/Booking.astro';
+import { site, contact, about, offerings } from '../content/site';
+import { isTodo } from '../lib/text';
+
+// Local-business structured data, emitted only where the values are real.
+const ld: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'HealthAndBeautyBusiness',
+  name: site.name,
+  url: `${site.url}${site.base}`,
+  description: isTodo(site.description) ? site.tagline : site.description,
+};
+if (!isTodo(about.heading)) ld.founder = { '@type': 'Person', name: about.heading };
+if (!contact.email.startsWith('TODO')) ld.email = contact.email;
+if (contact.instagram) ld.sameAs = [contact.instagram];
+ld.makesOffer = offerings.items
+  .filter((o) => !isTodo(o.name))
+  .map((o) => ({ '@type': 'Offer', name: o.name, description: isTodo(o.body) ? undefined : o.body }));
+---
+
+<Base>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(ld)} />
+
+  <Hero />
+  <Resonance />
+  <Work />
+  <Offerings />
+  <Journey />
+  <About />
+  <Testimonials />
+  <Faq />
+  <Booking />
+</Base>

@@ -1,0 +1,55 @@
+---
+import { journey } from '../content/site';
+import T from './T.astro';
+---
+
+<section class="section section--band" id="journey">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">{journey.eyebrow}</p>
+      <h2>{journey.heading}</h2>
+    </div>
+
+    <ol class="steps">
+      {journey.steps.map((step, i) => (
+        <li class="step reveal" style={`transition-delay:${i * 70}ms`}>
+          <span class="step__no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <div class="step__text">
+            <h3>{step.title}</h3>
+            <p><T text={step.body} /></p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps { list-style: none; padding: 0; counter-reset: step; }
+
+  .step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(1.25rem, 4vw, 3.5rem);
+    padding-block: clamp(1.75rem, 3vw, 2.5rem);
+    border-top: 1px solid var(--rule);
+  }
+  .step:last-child { border-bottom: 1px solid var(--rule); }
+
+  .step__no {
+    font-family: var(--display);
+    font-size: var(--step-2);
+    font-style: italic;
+    color: var(--accent-ink);
+    min-width: 2.5ch;
+  }
+
+  .step__text h3 { font-size: var(--step-3); margin-bottom: 0.6rem; }
+  .step__text p { max-width: var(--measure); color: var(--ink-soft); }
+
+  @media (min-width: 60rem) {
+    .step { grid-template-columns: auto minmax(0, 22rem) minmax(0, 1fr); align-items: baseline; }
+    .step__text { display: contents; }
+    .step__text h3 { margin-bottom: 0; }
+  }
+</style>

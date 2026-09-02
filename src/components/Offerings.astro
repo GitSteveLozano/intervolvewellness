@@ -1,0 +1,124 @@
+---
+import { offerings, hero } from '../content/site';
+import T from './T.astro';
+---
+
+<section class="section" id="offerings">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">{offerings.eyebrow}</p>
+      <h2>{offerings.heading}</h2>
+    </div>
+
+    <div class="cards">
+      {offerings.items.map((item, i) => (
+        <article
+          class:list={['card', 'reveal', { 'card--featured': item.featured }]}
+          style={`transition-delay:${i * 90}ms`}
+        >
+          {item.featured && <p class="card__flag">Most booked</p>}
+
+          <header class="card__head">
+            <h3>{item.name}</h3>
+            <p class="card__meta">
+              <span>{item.duration}</span>
+              <span aria-hidden="true">·</span>
+              <span class="card__price"><T text={item.price} /></span>
+            </p>
+          </header>
+
+          <p class="card__body"><T text={item.body} /></p>
+
+          <ul class="card__list">
+            {item.includes.map((line) => (
+              <li><T text={line} /></li>
+            ))}
+          </ul>
+
+          <a class:list={['btn', item.featured ? 'btn--primary' : 'btn--ghost', 'card__cta']} href={hero.primaryCta.href}>
+            {item.cta}
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cards {
+    display: grid;
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+    align-items: stretch;
+  }
+  @media (min-width: 52rem) { .cards { grid-template-columns: repeat(3, 1fr); } }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    background: var(--ground-2);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .card:hover { border-color: var(--rule-strong); transform: translateY(-4px); }
+
+  .card--featured {
+    border-color: var(--accent);
+    box-shadow: 0 1px 0 var(--accent) inset;
+  }
+
+  .card__flag {
+    align-self: flex-start;
+    padding: 0.35em 0.9em;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+  }
+
+  .card__head h3 { font-size: var(--step-3); }
+  .card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-top: 0.6rem;
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .card__price { color: var(--ink); font-weight: 600; }
+
+  .card__body { color: var(--ink-soft); }
+
+  .card__list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.7rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    font-size: var(--step--1);
+  }
+  .card__list li {
+    display: grid;
+    grid-template-columns: 1.1em 1fr;
+    gap: 0.5em;
+    color: var(--ink-soft);
+  }
+  .card__list li::before {
+    content: '';
+    width: 0.45em; height: 0.45em;
+    margin-top: 0.62em;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  .card__cta { justify-content: center; width: 100%; }
+</style>

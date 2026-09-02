@@ -1,0 +1,110 @@
+---
+import { existsSync } from 'node:fs';
+import { about, legal } from '../content/site';
+import T from './T.astro';
+
+// Resolved at build time: the moment a real photo lands in public/images/
+// the placeholder disappears on its own, no code change needed.
+const hasPortrait = existsSync(new URL(`../../public${about.portrait}`, import.meta.url));
+const portraitSrc = `${import.meta.env.BASE_URL}${about.portrait}`.replace(/\/{2,}/g, '/');
+---
+
+<section class="section" id="about">
+  <div class="shell about">
+    <figure class="about__figure reveal">
+      {hasPortrait ? (
+        <img
+          src={portraitSrc}
+          alt={about.portraitAlt}
+          width="900"
+          height="1125"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="about__placeholder">
+          <span aria-hidden="true">◎</span>
+          <p>Add a portrait at <code>public{about.portrait}</code></p>
+        </div>
+      )}
+    </figure>
+
+    <div class="about__text reveal">
+      <p class="eyebrow">{about.eyebrow}</p>
+      <h2><T text={about.heading} /></h2>
+
+      {about.paragraphs.map((para) => (
+        <p class="about__para"><T text={para} /></p>
+      ))}
+
+      <ul class="about__creds">
+        {about.credentials.map((cred) => (
+          <li><T text={cred} /></li>
+        ))}
+      </ul>
+
+      {legal.lineage && <p class="about__lineage"><T text={legal.lineage} /></p>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { display: grid; gap: clamp(2.5rem, 5vw, 4.5rem); align-items: start; }
+  @media (min-width: 58rem) {
+    .about { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr); }
+    .about__figure { position: sticky; top: 7rem; }
+  }
+
+  .about__figure { margin: 0; }
+  .about__figure img,
+  .about__placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    background: var(--ground-3);
+  }
+  .about__figure img { object-fit: cover; }
+
+  .about__placeholder {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+    border: 1px dashed var(--rule-strong);
+    color: var(--ink-faint);
+  }
+  .about__placeholder span { font-size: 2.5rem; color: var(--accent); }
+  .about__placeholder p { font-size: var(--step--1); max-width: 24ch; }
+  .about__placeholder code { word-break: break-all; }
+
+  .about__text h2 { font-size: var(--step-4); margin-bottom: 1.75rem; }
+  .about__para { max-width: var(--measure); color: var(--ink-soft); }
+  .about__para + .about__para { margin-top: 1.15rem; }
+
+  .about__creds {
+    list-style: none;
+    padding: 1.5rem 0 0;
+    margin-top: 2rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .about__creds li {
+    padding: 0.4em 1em;
+    font-size: var(--step--1);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--ink-soft);
+  }
+
+  .about__lineage {
+    margin-top: 1.75rem;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--step-1);
+    color: var(--accent-ink);
+  }
+</style>

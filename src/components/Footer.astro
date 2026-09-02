@@ -1,0 +1,84 @@
+---
+import { site, contact, legal, nav } from '../content/site';
+import T from './T.astro';
+
+const year = new Date().getFullYear();
+const hasEmail = contact.email && !contact.email.startsWith('TODO');
+---
+
+<footer class="ftr">
+  <div class="shell ftr__inner">
+    <div class="ftr__brand">
+      <p class="ftr__name">{site.name}</p>
+      <p class="ftr__tag">{site.tagline}</p>
+      {hasEmail && (
+        <a class="ftr__email" href={`mailto:${contact.email}`}>{contact.email}</a>
+      )}
+    </div>
+
+    <nav class="ftr__nav" aria-label="Footer">
+      <ul>
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        <li><a href="#book">Book</a></li>
+      </ul>
+    </nav>
+
+    <div class="ftr__social">
+      {contact.instagram && (
+        <a href={contact.instagram} rel="me noopener noreferrer" target="_blank">
+          {contact.instagramHandle || 'Instagram'}
+        </a>
+      )}
+      {contact.phone && <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>}
+    </div>
+  </div>
+
+  <div class="shell ftr__base">
+    <p class="ftr__legal"><T text={legal.disclaimer} /></p>
+    <p class="ftr__copy">© {year} {site.name}. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    padding-block: clamp(3rem, 7vw, 5rem) 2.5rem;
+    background: var(--ground-3);
+    border-top: 1px solid var(--rule);
+  }
+
+  .ftr__inner {
+    display: grid;
+    gap: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  @media (min-width: 48rem) {
+    .ftr__inner { grid-template-columns: minmax(0, 1.4fr) auto auto; gap: clamp(2rem, 6vw, 5rem); }
+  }
+
+  .ftr__name { font-family: var(--display); font-size: var(--step-2); }
+  .ftr__tag { margin-top: 0.35rem; color: var(--ink-soft); max-width: 30ch; }
+  .ftr__email { display: inline-block; margin-top: 1rem; color: var(--accent-ink); }
+
+  .ftr__nav ul, .ftr__social {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+    font-size: var(--step--1);
+  }
+  .ftr__nav a, .ftr__social a { color: var(--ink-soft); text-decoration: none; }
+  .ftr__nav a:hover, .ftr__social a:hover { color: var(--ink); text-decoration: underline; }
+
+  .ftr__base {
+    display: grid;
+    gap: 1rem;
+    padding-top: 2rem;
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+  }
+  @media (min-width: 48rem) {
+    .ftr__base { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+  }
+  .ftr__legal { max-width: 68ch; line-height: 1.6; }
+</style>

@@ -1,0 +1,52 @@
+---
+import { work } from '../content/site';
+import T from './T.astro';
+---
+
+<section class="section section--deep" id="work">
+  <div class="shell">
+    <div class="section-head reveal">
+      <p class="eyebrow">{work.eyebrow}</p>
+      <h2>{work.heading}</h2>
+      <p class="lede"><T text={work.body} /></p>
+    </div>
+
+    <div class="pillars">
+      {work.pillars.map((pillar, i) => (
+        <article class="pillar reveal" style={`transition-delay:${i * 80}ms`}>
+          <span class="pillar__no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{pillar.title}</h3>
+          <p><T text={pillar.body} /></p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pillars {
+    display: grid;
+    gap: 1px;
+    background: rgba(242, 235, 226, 0.16);
+    border-block: 1px solid rgba(242, 235, 226, 0.16);
+  }
+  @media (min-width: 42rem) { .pillars { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 68rem) { .pillars { grid-template-columns: repeat(4, 1fr); } }
+
+  .pillar {
+    background: var(--ground-deep);
+    padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  .pillar__no {
+    display: block;
+    font-family: var(--body);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--accent-lift);
+    margin-bottom: 1.5rem;
+  }
+
+  .pillar h3 { font-size: var(--step-2); margin-bottom: 0.85rem; }
+  .pillar p { font-size: var(--step-0); line-height: 1.6; }
+</style>
