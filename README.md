@@ -40,10 +40,18 @@ The easiest route without a local clone is GitHub's web uploader: open
 drag the file in, name it `portrait.jpg`, and commit to `main`. The deploy runs
 by itself.
 
-Before uploading, resize it. Phone and camera exports are often 3–8 MB, which
-is the single easiest way to make a fast site feel slow on mobile. Aim for
-**about 1200 px wide and under 300 kB** — any image tool will do it, and the
-frame only ever renders about 600 px wide.
+Resize it before it ships. Phone and camera exports run to several megabytes,
+which is the single easiest way to make a fast site feel slow on mobile. If you
+have the repo checked out, the script does it for you:
+
+```sh
+npm run image -- path/to/the-original.jpg portrait.jpg
+```
+
+It writes a 1200 px wide, quality-82 progressive JPEG into `public/images/`,
+honouring EXIF rotation and stripping metadata. The original headshot went from
+4.59 MB to 139 kB that way. 1200 px covers a 2x display; the frame only ever
+renders about 600 px wide.
 
 The frame is 4:5 and crops from the sides, so centre her in the original. If a
 crop sits badly, add `object-position` to `.about__figure img` in

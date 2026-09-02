@@ -1,12 +1,23 @@
 ---
 import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import sharp from 'sharp';
 import { about, legal } from '../content/site';
 import T from './T.astro';
 
 // Resolved at build time: the moment a real photo lands in public/images/
 // the placeholder disappears on its own, no code change needed.
-const hasPortrait = existsSync(new URL(`../../public${about.portrait}`, import.meta.url));
+//
+// Resolved from the project root, NOT from import.meta.url — Astro bundles
+// components before running them, so import.meta.url points into the build
+// output rather than at src/components/ and the file is never found there.
+const portraitFile = join(process.cwd(), 'public', about.portrait);
+const hasPortrait = existsSync(portraitFile);
 const portraitSrc = `${import.meta.env.BASE_URL}${about.portrait}`.replace(/\/{2,}/g, '/');
+
+// Read the real dimensions rather than hard-coding them, so swapping the photo
+// for one of a different shape cannot leave the attributes lying about it.
+const size = hasPortrait ? await sharp(portraitFile).metadata() : null;
 ---
 
 <section class="section" id="about">
@@ -16,8 +27,8 @@ const portraitSrc = `${import.meta.env.BASE_URL}${about.portrait}`.replace(/\/{2
         <img
           src={portraitSrc}
           alt={about.portraitAlt}
-          width="900"
-          height="1125"
+          width={size?.width}
+          height={size?.height}
           loading="lazy"
           decoding="async"
         />
