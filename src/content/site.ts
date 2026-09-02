@@ -163,15 +163,10 @@ export const offerings = {
       featured: true,
     },
     {
-      name: 'Four-session series',
+      name: 'Deep work series',
       duration: 'Four × 90 minutes',
-      /**
-       * TODO — decide the price. Four single sessions are $800. A legible
-       * saving without cheapening the single session is $700: "save $100",
-       * $175 a session. Anything under about $680 starts to make the
-       * one-off look overpriced rather than the series look good.
-       */
-      price: 'TODO — $700?',
+      /** $700 for four: $175 a session, $100 less than booking them singly. */
+      price: '$700',
       body: 'TODO — her description of the series. What sustained work makes possible that a single session cannot, and who it suits.',
       includes: [
         'Four 90-minute sessions',
@@ -186,7 +181,7 @@ export const offerings = {
        * cannot take payment for a package spread over four bookings. Point this
        * at a scheduling link only once there is a way to actually buy it.
        */
-      href: 'mailto:eileen@intervolve-wellness.com?subject=Four-session%20series',
+      href: 'mailto:eileen@intervolve-wellness.com?subject=Deep%20work%20series',
       featured: false,
     },
   ],
