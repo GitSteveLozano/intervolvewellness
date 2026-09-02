@@ -18,8 +18,8 @@ export const site = {
   url: 'https://intervolve-wellness.com',
   /** Served from the domain root, so no path prefix. */
   base: '',
-  /** TODO — confirm: are sessions online only, or also in person? */
-  location: 'TODO — e.g. Sessions held online',
+  /** Optional line under the hero. Hidden while empty. e.g. 'Sessions held online'. */
+  location: '',
 } as const;
 
 export const contact = {
@@ -132,18 +132,12 @@ export const helpsWith = {
   eyebrow: 'What it can help with',
   heading: 'What people bring to a session.',
   intro: 'People rarely arrive with only one thing. If what brought you here is not listed, it is still worth asking about.',
-  items: [
-    'TODO — her most-worked-with topic',
-    'TODO — second most common',
-    'TODO — anxiety, panic, sleep?',
-    'TODO — grief and loss?',
-    'TODO — chronic illness, pain, autoimmune?',
-    'TODO — birth, fertility, pregnancy loss?',
-    'TODO — self-criticism, guilt, shame?',
-    'TODO — big life transitions',
-    'TODO — feeling safe in your body again',
-    'TODO — add or remove freely; keep only what she genuinely works with',
-  ],
+  /**
+   * Her actual presenting issues, and only hers — this is the section people
+   * scan for their own thing, so a borrowed list would be worse than none.
+   * The whole section hides itself while this is empty.
+   */
+  items: [] as string[],
 } as const;
 
 /**
@@ -191,7 +185,6 @@ export const offerings = {
         'Clarifying your intention together',
         'A guided, deeply relaxed and focused state',
         'Releasing emotional blocks at the root',
-        'TODO — is a recording included?',
       ],
       flag: '',
       cta: 'Book a session',
@@ -233,8 +226,7 @@ export const about = {
   heading: 'Eileen Silot',
   paragraphs: [
     'TODO — how she came to this work. Personal, specific, first person. This is the paragraph people book on.',
-    'TODO — her nursing background, and what carrying a clinical training into this room changes.',
-    'TODO — her hypnotherapy training and lineage, including her teacher.',
+    'TODO — her nursing background and her hypnotherapy training, and what carrying a clinical grounding into this room changes.',
     'At Intervolve, every part of you is met with care. In a space rooted in safety and intention, healing unfolds at your own pace, allowing true evolution to emerge.',
   ],
   /**
@@ -245,12 +237,7 @@ export const about = {
   portrait: '/images/portrait.jpg',
   portraitAlt:
     'Eileen Silot seated on a sofa in a white lace blouse and jeans, one arm resting along the cushions, smiling gently at the camera.',
-  credentials: [
-    'Registered Nurse',
-    'Trauma-informed practice',
-    'TODO — hypnotherapy certification',
-    'TODO — insurance or membership',
-  ],
+  credentials: ['Registered Nurse', 'Trauma-informed practice'],
 } as const;
 
 export const testimonials = {
@@ -281,13 +268,11 @@ export const faq = {
       q: 'Do I have to relive something painful?',
       a: 'No. Trauma-informed practice means we go at the pace your system allows, not the pace the story wants. You choose what we approach and how close we get, you can say stop at any moment, and we can work with something without moving back into the middle of it.',
     },
-    { q: 'How many sessions will I need?', a: 'TODO — honest answer, with ranges.' },
     {
       q: 'Is this therapy? Is it medical care?',
       a: 'Neither. Hypnotherapy is a complementary practice; it is not psychotherapy, and a session is not nursing or medical care. My clinical background shapes how safely a session is held, but I am not acting as your nurse and nothing here replaces treatment from your doctor or therapist. Where something belongs with one of them, I will say so.',
       // TODO — confirm this wording matches what her insurer and certifying body require.
     },
-    { q: 'How do online sessions work?', a: 'TODO — the platform, and what someone needs: a private space, wired headphones with a mic, a good connection.' },
   ],
 } as const;
 
@@ -300,14 +285,19 @@ export const legal = {
    */
   disclaimer:
     'Hypnotherapy is a complementary practice. It is not psychotherapy or medical care, and it is not a substitute for treatment from a qualified physician or mental health professional. Sessions do not create a nurse–patient relationship, and no outcome is guaranteed. If you are in crisis, please contact your doctor or your local emergency service.',
-  lineage: 'TODO — e.g. "Trained in the Restorative Hypnosis tradition." Confirm with her before publishing.',
+  /** Optional credit line in About. Hidden while empty. */
+  lineage: '',
 } as const;
 
-/** Follows the order of the page itself, so the scroll-spy reads correctly. */
+/**
+ * Follows the order of the page itself, so the scroll-spy reads correctly.
+ * Sections that hide themselves when empty are dropped from the nav too, so a
+ * link can never point at nothing.
+ */
 export const nav = [
   { label: 'About', href: '#about' },
   { label: 'The work', href: '#work' },
   { label: 'What it helps', href: '#helps' },
   { label: 'Sessions', href: '#offerings' },
   { label: 'Questions', href: '#faq' },
-] as const;
+].filter((item) => item.href !== '#helps' || helpsWith.items.length > 0);

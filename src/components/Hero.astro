@@ -23,7 +23,7 @@ const parts = emphasise(hero.heading);
       <a class="btn btn--ghost" href={hero.secondaryCta.href}>{hero.secondaryCta.label}</a>
     </div>
 
-    <p class="hero__where"><T text={site.location} /></p>
+    {site.location && <p class="hero__where"><T text={site.location} /></p>}
   </div>
 
   <div class="hero__scroll" aria-hidden="true"><span></span></div>

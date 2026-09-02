@@ -3,6 +3,7 @@ import { helpsWith } from '../content/site';
 import T from './T.astro';
 ---
 
+{helpsWith.items.length > 0 && (
 <section class="section section--band" id="helps">
   <div class="shell helps">
     <div class="helps__head reveal">
@@ -20,6 +21,7 @@ import T from './T.astro';
     </ul>
   </div>
 </section>
+)}
 
 <style>
   .helps { display: grid; gap: clamp(2rem, 4vw, 4rem); align-items: start; }
