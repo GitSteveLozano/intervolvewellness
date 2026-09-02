@@ -20,6 +20,8 @@ import T from './T.astro';
         </article>
       ))}
     </div>
+
+    <p class="work__close reveal"><T text={work.close} /></p>
   </div>
 </section>
 
@@ -30,8 +32,10 @@ import T from './T.astro';
     background: rgba(242, 235, 226, 0.16);
     border-block: 1px solid rgba(242, 235, 226, 0.16);
   }
-  @media (min-width: 42rem) { .pillars { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 68rem) { .pillars { grid-template-columns: repeat(4, 1fr); } }
+  /* auto-fit rather than a fixed count, so three and four pillars both work */
+  @media (min-width: 42rem) {
+    .pillars { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+  }
 
   .pillar {
     background: var(--ground-deep);
@@ -49,4 +53,13 @@ import T from './T.astro';
 
   .pillar h3 { font-size: var(--step-2); margin-bottom: 0.85rem; }
   .pillar p { font-size: var(--step-0); line-height: 1.6; }
+
+  .work__close {
+    max-width: 46ch;
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--step-2);
+    line-height: 1.4;
+  }
 </style>

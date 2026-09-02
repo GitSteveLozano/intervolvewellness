@@ -14,7 +14,7 @@ export const site = {
   credentials: 'RN',
   tagline: 'Trauma-informed hypnotherapy for whole-body healing',
   description:
-    'Eileen Silot, RN and hypnotherapist. Trauma-informed hypnotherapy sessions supporting deep holistic healing and whole-body transformation, held online.',
+    'Eileen Silot, RN and hypnotherapist. Trauma-informed care, yoga guidance and hypnotherapy, blended for deep holistic healing and whole-body transformation.',
   url: 'https://gitstevelozano.github.io',
   base: '/intervolvewellness',
   /** TODO — confirm: are sessions online only, or also in person? */
@@ -70,14 +70,30 @@ export const resonance = {
 
 export const work = {
   eyebrow: 'The work',
-  heading: 'Hypnosis is not sleep. It is attention, turned inward.',
-  body: 'TODO — explain the work plainly and without mysticism, in her voice. What the state feels like, that she stays in conversation with you throughout, that you remain aware and in control, and why the subconscious is where lasting change happens rather than the surface.',
+  heading: 'Where clinical care meets deeper work.',
+  body: 'The practice blends clinical experience with integrative therapies to offer deep holistic healing.',
+  /**
+   * Her three modalities, in her own words. The descriptions are deliberately
+   * hedged — "intended to assist with", "aimed at" — because she is a licensed
+   * nurse and these sit next to health claims. Do not sharpen them into
+   * promises of outcome.
+   */
   pillars: [
-    { title: 'Held safely', body: 'TODO — what trauma-informed practice means in a session, and how consent and pacing work.' },
-    { title: 'Root, not symptom', body: 'TODO — tracing a feeling back to where it began rather than managing it at the surface.' },
-    { title: 'Whole-body', body: 'TODO — how the body is involved, and what it means to let it finish what it has been holding.' },
-    { title: 'Clinically grounded', body: 'TODO — what her nursing background brings, and where she refers out.' },
+    {
+      title: 'Trauma-informed care',
+      body: 'Grounded in nursing principles to provide safe, regulated healing spaces.',
+    },
+    {
+      title: 'Yoga guidance',
+      body: 'Somatic movement intended to assist with nervous system regulation and stress reduction.',
+    },
+    {
+      title: 'Hypnotherapy',
+      body: 'Subconscious mind reconditioning aimed at whole-body transformation and emotional release.',
+    },
   ],
+  /** TODO — one short paragraph on how the three combine inside a session. */
+  close: 'TODO — how these three meet in practice, in her voice.',
 } as const;
 
 /**
@@ -146,14 +162,30 @@ export const offerings = {
       featured: true,
     },
     {
-      name: 'Deep work series',
-      duration: 'TODO — how many sessions?',
-      price: 'TODO — $000',
-      body: 'TODO — sustained work for patterns that have been in place a long time. If she is not offering a package yet, delete this whole card: two clear options convert better than three, one of which is vague.',
-      includes: ['TODO — what the series includes', 'TODO — a tailored arc across the sessions', 'TODO — support between sessions'],
+      name: 'Four-session series',
+      duration: 'Four × 90 minutes',
+      /**
+       * TODO — decide the price. Four single sessions are $800. A legible
+       * saving without cheapening the single session is $700: "save $100",
+       * $175 a session. Anything under about $680 starts to make the
+       * one-off look overpriced rather than the series look good.
+       */
+      price: 'TODO — $700?',
+      body: 'TODO — her description of the series. What sustained work makes possible that a single session cannot, and who it suits.',
+      includes: [
+        'Four 90-minute sessions',
+        'TODO — how the four are paced (weekly? fortnightly?)',
+        'TODO — is there an arc across the series, or four separate intentions?',
+        'TODO — anything between sessions',
+      ],
       flag: '',
-      cta: 'Enquire',
-      href: '#book',
+      cta: 'Enquire about the series',
+      /**
+       * Deliberately email, not Calendly: her Calendly sells single events and
+       * cannot take payment for a package spread over four bookings. Point this
+       * at a scheduling link only once there is a way to actually buy it.
+       */
+      href: 'mailto:eileen@intervolvewellness.com?subject=Four-session%20series',
       featured: false,
     },
   ],
