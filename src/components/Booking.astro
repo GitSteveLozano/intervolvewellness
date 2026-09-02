@@ -70,10 +70,6 @@ const acuitySrc =
   <script is:inline defer src="https://assets.calendly.com/assets/external/widget.js"></script>
 )}
 
-{booking.provider === 'calendly' && configured && (
-  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
-)}
-
 {booking.provider === 'cal' && configured && (
   <script is:inline>
     (function (C, A, L) {

@@ -28,25 +28,25 @@ const tagLines = wrap(site.tagline);
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
     <radialGradient id="glow" cx="22%" cy="28%" r="62%">
-      <stop offset="0%" stop-color="#a8674a" stop-opacity="0.42"/>
-      <stop offset="100%" stop-color="#241e2b" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#c9bfae" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#222222" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="1200" height="630" fill="#241e2b"/>
+  <rect width="1200" height="630" fill="#222222"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
-  <g fill="none" stroke="#d9a183" stroke-width="1.5" opacity="0.28">
+  <g fill="none" stroke="#c9bfae" stroke-width="1.5" opacity="0.28">
     <circle cx="1010" cy="500" r="190"/>
     <circle cx="1010" cy="500" r="130"/>
     <circle cx="1010" cy="500" r="70"/>
   </g>
-  <text x="90" y="150" fill="#d9a183" font-family="sans-serif" font-size="24"
-        letter-spacing="6" font-weight="600">RESTORATIVE HYPNOTHERAPY</text>
-  <text x="90" y="270" fill="#f2ebe2" font-family="serif" font-size="82">${esc(site.name)}</text>
+  <text x="90" y="150" fill="#c9bfae" font-family="sans-serif" font-size="24"
+        letter-spacing="6" font-weight="600">${esc(site.practitioner.toUpperCase())} &#183; ${esc(site.credentials)}</text>
+  <text x="90" y="270" fill="#f2f1ed" font-family="serif" font-size="82">${esc(site.name)}</text>
   ${tagLines
-    .map((l, i) => `<text x="90" y="${360 + i * 56}" fill="#f2ebe2" fill-opacity="0.72"
+    .map((l, i) => `<text x="90" y="${360 + i * 56}" fill="#f2f1ed" fill-opacity="0.72"
         font-family="sans-serif" font-size="36">${esc(l)}</text>`)
     .join('\n  ')}
-  <rect x="90" y="${372 + tagLines.length * 56}" width="72" height="3" fill="#d9a183"/>
+  <rect x="90" y="${372 + tagLines.length * 56}" width="72" height="3" fill="#c9bfae"/>
 </svg>`;
 
 const out = new URL('../public/og.png', import.meta.url);

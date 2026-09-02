@@ -1,6 +1,6 @@
 # Intervolve Wellness
 
-A one-page site for the Intervolve Wellness practice, built with
+A one-page site for Eileen Silot's hypnotherapy practice, built with
 [Astro](https://astro.build) and deployed to GitHub Pages.
 
 **Live:** https://gitstevelozano.github.io/intervolvewellness/
@@ -40,14 +40,20 @@ readers.
 
 In `src/content/site.ts`, find the `booking` block and set:
 
+It is already wired to her Calendly:
+
 ```ts
 export const booking = {
-  provider: 'cal',                      // 'cal' | 'calendly' | 'acuity' | 'none'
-  url: 'https://cal.com/her-name',
-  calLink: 'her-name/90min',            // Cal.com only: the "user/event" slug
+  provider: 'calendly',
+  url: 'https://calendly.com/intervolvewellness',
   ...
 };
 ```
+
+The embed shows her scheduling page, which lists both event types. Each card in
+the Sessions section also links straight to its own event, so someone who has
+already decided lands on the right one. Those per-card links live in
+`offerings.items[].href`.
 
 While `provider` is `'none'`, the booking section shows an email button instead
 and loads no third-party scripts at all.

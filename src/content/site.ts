@@ -2,172 +2,173 @@
  * ─────────────────────────────────────────────────────────────
  *  EVERY piece of text and every link on the site lives here.
  *  Edit this file to change the site. Nothing else needs touching.
- *  Anything marked  TODO  is a placeholder awaiting real content.
+ *  Anything marked  TODO  is a placeholder awaiting real content
+ *  and renders on the page with a hatched highlight.
  * ─────────────────────────────────────────────────────────────
  */
 
 export const site = {
-  /** Practice name, shown in the nav and the browser tab. */
   name: 'Intervolve Wellness',
-  /** Practitioner's name. */
-  practitioner: 'TODO — her full name',
-  /** Post-nominals / credentials, e.g. "CHt, Reiki Master". Leave '' to hide. */
-  credentials: 'TODO — credentials',
-  /** Used for <title>, meta description and social share cards. */
-  tagline: 'Restorative hypnotherapy for lasting inner change',
+  practitioner: 'Eileen Silot',
+  /** Post-nominals shown under the wordmark. Leave '' to hide. */
+  credentials: 'RN',
+  tagline: 'Trauma-informed hypnotherapy for whole-body healing',
   description:
-    'TODO — one or two sentences describing the practice, for search engines and link previews. Roughly 150 characters.',
-  /** Where the site will live. Update when a custom domain is added. */
+    'Eileen Silot, RN and hypnotherapist. Trauma-informed hypnotherapy sessions supporting deep holistic healing and whole-body transformation, held online.',
   url: 'https://gitstevelozano.github.io',
   base: '/intervolvewellness',
-  /** Sessions are online, in person, or both — shown under the hero. */
-  location: 'TODO — e.g. Online worldwide · In person in [city]',
+  /** TODO — confirm: are sessions online only, or also in person? */
+  location: 'TODO — e.g. Sessions held online',
 } as const;
 
 export const contact = {
+  /** TODO — her contact address. The mailto CTAs stay hidden until this is real. */
   email: 'TODO@example.com',
-  /** Leave any of these as '' and the icon disappears from the footer. */
-  instagram: 'https://instagram.com/intervolvewellness',
+  instagram: 'https://www.instagram.com/intervolvewellness',
   instagramHandle: '@intervolvewellness',
   phone: '',
-  /** The old link-in-bio page — keep or clear once the new site replaces it. */
   legacyBio: 'https://bio.site/intervolvewellness',
 } as const;
 
 /**
- * Booking widget.
- *   provider : 'cal' | 'calendly' | 'acuity' | 'none'
- *   url      : the full public scheduling URL
- * While provider is 'none' the booking section shows a fallback card
- * with an email CTA instead of an embed — nothing third-party loads.
+ * Booking. She uses Calendry — the embed points at her scheduling page, which
+ * lists both event types; the individual offerings below link straight to
+ * their own event so a visitor lands on the right one.
  */
 export const booking = {
-  provider: 'none' as 'cal' | 'calendly' | 'acuity' | 'none',
-  url: 'TODO — full scheduler URL',
-  /** For Cal.com only: the "namespace/event" slug, e.g. "her-name/discovery". */
+  provider: 'calendly' as 'cal' | 'calendly' | 'acuity' | 'none',
+  url: 'https://calendly.com/intervolvewellness',
   calLink: '',
-  heading: 'Book your session',
-  body: 'Pick a time that suits you. If nothing fits, send an email and we will find one.',
+  heading: 'Book a session',
+  body: 'Start with a free clarity call if you are not sure, or go straight to a full session. Both open in the calendar below.',
 } as const;
 
-/** Big statement at the top of the page. */
 export const hero = {
-  eyebrow: 'Restorative Hypnotherapy',
-  /** Rendered as one line; the word wrapped in {} is emphasised in the accent colour. */
-  heading: 'Come home to the {quiet} underneath everything.',
-  body: 'TODO — two or three sentences in her voice. What she does, who it is for, and the feeling someone leaves with. This is the most important paragraph on the site.',
+  eyebrow: 'Trauma-informed hypnotherapy',
+  /** The word in {braces} is set in italic display type. */
+  heading: 'Every part of you is met with {care}.',
+  body: 'I am Eileen — a registered nurse and hypnotherapist. In a space rooted in safety and intention, healing unfolds at your own pace, and true evolution emerges.',
   primaryCta: { label: 'Book a session', href: '#book' },
   secondaryCta: { label: 'How it works', href: '#work' },
 } as const;
 
-/** The resonance block — names what the visitor is carrying. */
 export const resonance = {
   heading: 'You have done the work. Something still has not moved.',
   intro:
-    'TODO — a short lead-in acknowledging where someone is when they find this page.',
+    'TODO — a short lead-in in her voice, acknowledging where someone is when they find this page.',
   items: [
+    'You have done the talk therapy, the breathwork, the journalling — and something still has not shifted.',
     'You understand your patterns intellectually, but they keep running anyway.',
     'A feeling lives in your body that talking has never quite reached.',
-    'Something from long ago still sets the terms of how you love, rest, or ask.',
     'You are ready to meet what is underneath, gently and with support.',
   ],
   close: 'TODO — one sentence turning towards hope.',
 } as const;
 
-/** What the modality actually is. */
 export const work = {
   eyebrow: 'The work',
   heading: 'Hypnosis is not sleep. It is attention, turned inward.',
-  body: 'TODO — explain restorative hypnotherapy plainly and without mysticism. What the state feels like, that the client stays aware and in control, and why the subconscious is where lasting change happens.',
+  body: 'TODO — explain the work plainly and without mysticism, in her voice. What the state feels like, that she stays in conversation with you throughout, that you remain aware and in control, and why the subconscious is where lasting change happens rather than the surface.',
   pillars: [
-    {
-      title: 'Parts work',
-      body: 'TODO — meeting the protective parts that formed for good reason, and giving them something better to do.',
-    },
-    {
-      title: 'Inner child',
-      body: 'TODO — returning to the moment a belief was set, and offering it what it needed then.',
-    },
-    {
-      title: 'Regression',
-      body: 'TODO — tracing a feeling back to its root rather than managing it at the surface.',
-    },
-    {
-      title: 'Somatic release',
-      body: 'TODO — letting the body finish what it has been holding.',
-    },
+    { title: 'Held safely', body: 'TODO — what trauma-informed practice means in a session, and how consent and pacing work.' },
+    { title: 'Root, not symptom', body: 'TODO — tracing a feeling back to where it began rather than managing it at the surface.' },
+    { title: 'Whole-body', body: 'TODO — how the body is involved, and what it means to let it finish what it has been holding.' },
+    { title: 'Clinically grounded', body: 'TODO — what her nursing background brings, and where she refers out.' },
   ],
 } as const;
 
-/** Session offerings. Add or remove cards freely. */
+/**
+ * The mentor's site carries a long, scannable list of presenting issues. It is
+ * one of the strongest things on that page: people scan for their own thing and
+ * feel seen. This list must be Eileen's own — only what she actually works with.
+ */
+export const helpsWith = {
+  eyebrow: 'What it can help with',
+  heading: 'What people bring to a session.',
+  intro: 'TODO — one sentence introducing the list, and an invitation to ask about anything not on it.',
+  items: [
+    'TODO — her most-worked-with topic',
+    'TODO — second most common',
+    'TODO — anxiety, panic, sleep?',
+    'TODO — grief and loss?',
+    'TODO — chronic illness, pain, autoimmune?',
+    'TODO — birth, fertility, pregnancy loss?',
+    'TODO — self-criticism, guilt, shame?',
+    'TODO — big life transitions',
+    'TODO — feeling safe in your body again',
+    'TODO — add or remove freely; keep only what she genuinely works with',
+  ],
+} as const;
+
 export const offerings = {
   eyebrow: 'Ways to work together',
-  heading: 'Choose the depth that fits where you are.',
+  heading: 'Start where you are.',
   items: [
     {
-      name: 'Discovery call',
-      duration: '20 minutes',
+      name: 'Clarity call',
+      duration: '15 minutes',
       price: 'Free',
-      body: 'TODO — a no-pressure conversation to see whether this is right for you.',
-      includes: ['A short conversation about what brought you here', 'Space for every question', 'No obligation to book'],
-      cta: 'Book a call',
+      body: 'A short, no-pressure conversation to see whether this is right for you.',
+      includes: ['A conversation about what brought you here', 'Space for every question', 'No obligation to book'],
+      cta: 'Book a clarity call',
+      href: 'https://calendly.com/intervolvewellness/discovery-call',
       featured: false,
     },
     {
-      name: 'Single session',
+      name: 'Hypno session',
       duration: '90 minutes',
       price: 'TODO — $000',
-      body: 'TODO — a complete standalone journey for one clear intention.',
-      includes: ['Intention setting and intake', 'A full guided hypnosis journey', 'Integration notes afterwards', 'A recording to keep'],
+      body: 'A full guided journey into the subconscious, for one clear intention.',
+      includes: ['Intention setting and intake', 'A full guided hypnosis journey', 'TODO — is a recording included?', 'TODO — integration notes or follow-up?'],
       cta: 'Book a session',
+      href: 'https://calendly.com/intervolvewellness/new-meeting',
       featured: true,
     },
     {
       name: 'Deep work series',
-      duration: 'Six sessions',
+      duration: 'TODO — how many sessions?',
       price: 'TODO — $000',
-      body: 'TODO — sustained work for patterns that have been in place a long time.',
-      includes: ['Six 90-minute sessions', 'A tailored arc across the series', 'Practices between sessions', 'Support by message throughout'],
+      body: 'TODO — sustained work for patterns that have been in place a long time. Delete this card if she is not offering a package yet.',
+      includes: ['TODO — what the series includes', 'TODO — a tailored arc across the sessions', 'TODO — support between sessions'],
       cta: 'Enquire',
+      href: '#book',
       featured: false,
     },
   ],
 } as const;
 
-/** What actually happens, start to finish. */
 export const journey = {
   eyebrow: 'What to expect',
   heading: 'A session, step by step.',
   steps: [
-    { title: 'We talk first', body: 'TODO — what the opening conversation covers.' },
-    { title: 'You settle', body: 'TODO — the induction, and what the state feels like.' },
-    { title: 'We go to the root', body: 'TODO — the heart of the session.' },
-    { title: 'Something is offered back', body: 'TODO — the repair or resource given.' },
-    { title: 'You return, slowly', body: 'TODO — coming back and integrating.' },
+    { title: 'We talk first', body: 'TODO — what the opening conversation covers, and how an intention is set.' },
+    { title: 'You settle', body: 'TODO — the induction, and what the state actually feels like.' },
+    { title: 'We go to the root', body: 'TODO — the heart of the session. Note that you stay talking with her throughout.' },
+    { title: 'Something is offered back', body: 'TODO — the repair, resource or release.' },
+    { title: 'You return, slowly', body: 'TODO — coming back, and how integration is supported afterwards.' },
   ],
 } as const;
 
-/** Her story. */
 export const about = {
   eyebrow: 'About',
-  heading: 'TODO — her name',
-  /** Each string becomes its own paragraph. */
+  heading: 'Eileen Silot',
   paragraphs: [
-    'TODO — how she came to this work. Personal, specific, first person.',
-    'TODO — her training and lineage, including her teacher and the tradition she works in.',
-    'TODO — how she holds a room, and what a client can count on from her.',
+    'TODO — how she came to this work. Personal, specific, first person. This is the paragraph people book on.',
+    'TODO — her nursing background, and what carrying a clinical training into this room changes.',
+    'TODO — her hypnotherapy training and lineage, including her teacher.',
+    'At Intervolve, every part of you is met with care. In a space rooted in safety and intention, healing unfolds at your own pace, allowing true evolution to emerge.',
   ],
-  /** Drop a photo at public/images/portrait.jpg and this appears. */
+  /** Drop a photo at public/images/portrait.jpg and the placeholder disappears. */
   portrait: '/images/portrait.jpg',
   portraitAlt: 'TODO — describe the portrait for screen readers',
   credentials: [
-    'TODO — certification',
-    'TODO — training',
-    'TODO — membership or insurance',
+    'Registered Nurse',
+    'Trauma-informed practice',
+    'TODO — hypnotherapy certification',
+    'TODO — insurance or membership',
   ],
 } as const;
 
-/** Client words. Delete the array to hide the section entirely. */
 export const testimonials = {
   eyebrow: 'In their words',
   heading: 'What people carry away.',
@@ -182,28 +183,25 @@ export const faq = {
   eyebrow: 'Questions',
   heading: 'Before you book.',
   items: [
-    { q: 'Will I be unconscious or out of control?', a: 'TODO — no. Explain what the state is really like.' },
+    { q: 'Will I be unconscious or out of control?', a: 'TODO — no. Explain what the state is really like, and that you stay in conversation throughout.' },
     { q: 'What if I cannot be hypnotised?', a: 'TODO — reassure. Most people can; explain how it is guided.' },
-    { q: 'Do I have to relive something painful?', a: 'TODO — explain the pacing and consent within a session.' },
+    { q: 'Do I have to relive something painful?', a: 'TODO — explain pacing and consent within a session. This one matters most for trauma-informed work.' },
     { q: 'How many sessions will I need?', a: 'TODO — honest answer, with ranges.' },
-    { q: 'Is this therapy?', a: 'TODO — the scope of practice, and when she refers out.' },
-    { q: 'Do you work online?', a: 'TODO — how remote sessions run and what is needed.' },
+    { q: 'Is this therapy? Is it medical care?', a: 'TODO — scope of practice, what her RN training does and does not mean here, and when she refers out.' },
+    { q: 'How do online sessions work?', a: 'TODO — the platform, and what someone needs: a private space, wired headphones with a mic, a good connection.' },
   ],
 } as const;
 
-/** Small print in the footer. */
 export const legal = {
   disclaimer:
-    'TODO — a plain scope-of-practice note. Hypnotherapy is complementary and is not a substitute for medical or psychological treatment.',
-  /** Set to '' to hide the credit line. */
-  lineage: 'TODO — e.g. "Trained in the Restorative Hypnosis tradition."',
+    'TODO — a plain scope-of-practice note. Hypnotherapy is a complementary practice and is not a substitute for medical or psychological treatment. Sessions are not nursing care and do not create a nurse–patient relationship.',
+  lineage: 'TODO — e.g. "Trained in the Restorative Hypnosis tradition." Confirm with her before publishing.',
 } as const;
 
-/** Anchor nav. Remove an entry to drop it from the menu. */
 export const nav = [
   { label: 'The work', href: '#work' },
+  { label: 'What it helps', href: '#helps' },
   { label: 'Sessions', href: '#offerings' },
-  { label: 'What to expect', href: '#journey' },
   { label: 'About', href: '#about' },
   { label: 'Questions', href: '#faq' },
 ] as const;

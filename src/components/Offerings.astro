@@ -1,5 +1,5 @@
 ---
-import { offerings, hero } from '../content/site';
+import { offerings } from '../content/site';
 import T from './T.astro';
 ---
 
@@ -35,7 +35,11 @@ import T from './T.astro';
             ))}
           </ul>
 
-          <a class:list={['btn', item.featured ? 'btn--primary' : 'btn--ghost', 'card__cta']} href={hero.primaryCta.href}>
+          <a
+            class:list={['btn', item.featured ? 'btn--primary' : 'btn--ghost', 'card__cta']}
+            href={item.href}
+            {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
             {item.cta}
           </a>
         </article>

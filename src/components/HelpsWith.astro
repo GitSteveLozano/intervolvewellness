@@ -1,0 +1,63 @@
+---
+import { helpsWith } from '../content/site';
+import T from './T.astro';
+---
+
+<section class="section section--band" id="helps">
+  <div class="shell helps">
+    <div class="helps__head reveal">
+      <p class="eyebrow">{helpsWith.eyebrow}</p>
+      <h2>{helpsWith.heading}</h2>
+      <p class="helps__intro"><T text={helpsWith.intro} /></p>
+    </div>
+
+    <ul class="helps__list">
+      {helpsWith.items.map((item, i) => (
+        <li class="reveal" style={`transition-delay:${Math.min(i, 8) * 45}ms`}>
+          <T text={item} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .helps { display: grid; gap: clamp(2rem, 4vw, 4rem); align-items: start; }
+  @media (min-width: 58rem) {
+    .helps { grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr); }
+    .helps__head { position: sticky; top: 7rem; }
+  }
+
+  .helps__head h2 { font-size: var(--step-4); }
+  .helps__intro {
+    margin-top: 1.5rem;
+    max-width: 34ch;
+    color: var(--ink-soft);
+  }
+
+  /* A scannable column, not prose — people look for their own thing here. */
+  .helps__list {
+    list-style: none;
+    padding: 0;
+    columns: 1;
+    column-gap: 3rem;
+  }
+  @media (min-width: 44rem) { .helps__list { columns: 2; } }
+
+  .helps__list li {
+    break-inside: avoid;
+    display: grid;
+    grid-template-columns: 1.2em 1fr;
+    gap: 0.4em;
+    padding-block: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    line-height: 1.45;
+  }
+  .helps__list li::before {
+    content: '';
+    width: 5px; height: 5px;
+    margin-top: 0.72em;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+</style>

@@ -6,26 +6,32 @@
 :root {
   color-scheme: light dark;
 
-  /* ---- Colour: light ---- */
-  --ground:      #f7f2ea;  /* warm bone page background        */
-  --ground-2:    #fffdf9;  /* raised cards                     */
-  --ground-3:    #efe7db;  /* alternating band                 */
-  --ground-deep: #241e2b;  /* inverted feature sections        */
-  --ink:         #221d26;
-  --ink-soft:    #5a5260;
-  --ink-faint:   #8b8391;
-  --accent:      #a8674a;  /* clay — large text & non-text UI  */
-  --accent-ink:  #8a4e36;  /* clay, darkened for small text    */
-  --accent-lift: #d9a183;  /* clay on dark grounds             */
-  --rule:        rgba(34, 29, 38, 0.13);
-  --rule-strong: rgba(34, 29, 38, 0.24);
-  --on-deep:     #f2ebe2;
-  --on-deep-soft: rgba(242, 235, 226, 0.68);
+  /* ---- Colour: light ----
+     Near-monochrome, following the reference site: charcoal, off-white and a
+     warm bone band. The only chromatic note is a muted stone, used sparingly
+     for rules and marks — emphasis is carried by italic display type, not hue. */
+  --ground:      #fafafa;  /* off-white page background        */
+  --ground-2:    #ffffff;  /* raised cards                     */
+  --ground-3:    #e5e4e0;  /* warm bone alternating band       */
+  --ground-deep: #222222;  /* inverted feature sections        */
+  --ink:         #222222;
+  --ink-soft:    #4a4a48;
+  --ink-faint:   #86847e;
+  --accent:      #6f6455;  /* stone — non-text marks           */
+  --accent-ink:  #5c5346;  /* stone, darkened for small text   */
+  --accent-lift: #c9bfae;  /* stone on dark grounds            */
+  --rule:        rgba(34, 34, 34, 0.14);
+  --rule-strong: rgba(34, 34, 34, 0.28);
+  --on-deep:     #f2f1ed;
+  --on-deep-soft: rgba(242, 241, 237, 0.70);
 
   /* ---- Type ---- */
-  --display: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Palatino,
-             'Times New Roman', serif;
-  --body: 'Karla', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+  /* Cormorant Garamond and Lato are both used on the reference site and both
+     free on Google Fonts. Cormorant has a small x-height, so display sizes run
+     a step larger than they would with a workhorse serif. */
+  --display: 'Cormorant Garamond', 'Iowan Old Style', 'Palatino Linotype',
+             Palatino, 'Times New Roman', serif;
+  --body: 'Lato', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
           'Helvetica Neue', Arial, sans-serif;
 
   /* Fluid scale, 360px → 1400px viewport */
@@ -34,9 +40,9 @@
   --step-1:  clamp(1.20rem, 1.13rem + 0.32vw, 1.41rem);
   --step-2:  clamp(1.44rem, 1.32rem + 0.53vw, 1.76rem);
   --step-3:  clamp(1.73rem, 1.53rem + 0.85vw, 2.20rem);
-  --step-4:  clamp(2.07rem, 1.76rem + 1.32vw, 2.75rem);
-  --step-5:  clamp(2.49rem, 2.00rem + 2.05vw, 3.60rem);
-  --step-6:  clamp(2.99rem, 2.22rem + 3.20vw, 4.80rem);
+  --step-4:  clamp(2.20rem, 1.83rem + 1.56vw, 3.05rem);
+  --step-5:  clamp(2.70rem, 2.11rem + 2.48vw, 4.05rem);
+  --step-6:  clamp(3.30rem, 2.35rem + 3.95vw, 5.50rem);
 
   /* ---- Space & shape ---- */
   --gutter: clamp(1.25rem, 5vw, 3rem);
@@ -51,20 +57,20 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ground:      #16131a;
-    --ground-2:    #1e1a24;
-    --ground-3:    #1a1620;
-    --ground-deep: #100d14;
-    --ink:         #ede7e0;
-    --ink-soft:    #a79eac;
-    --ink-faint:   #7c7484;
-    --accent:      #d9a183;
-    --accent-ink:  #e0b096;
-    --accent-lift: #d9a183;
-    --rule:        rgba(237, 231, 224, 0.14);
-    --rule-strong: rgba(237, 231, 224, 0.26);
-    --on-deep:     #ede7e0;
-    --on-deep-soft: rgba(237, 231, 224, 0.66);
+    --ground:      #1a1a19;
+    --ground-2:    #232322;
+    --ground-3:    #1f1f1e;
+    --ground-deep: #121211;
+    --ink:         #ece9e3;
+    --ink-soft:    #a5a099;
+    --ink-faint:   #7c7871;
+    --accent:      #c9bfae;
+    --accent-ink:  #d4cbbc;
+    --accent-lift: #c9bfae;
+    --rule:        rgba(236, 233, 227, 0.15);
+    --rule-strong: rgba(236, 233, 227, 0.28);
+    --on-deep:     #ece9e3;
+    --on-deep-soft: rgba(236, 233, 227, 0.68);
   }
 }
 
@@ -96,8 +102,9 @@ img, svg, video { display: block; max-width: 100%; height: auto; }
 h1, h2, h3, h4 {
   font-family: var(--display);
   font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.018em;
+  line-height: 1.1;
+  /* Cormorant is already tightly fitted; negative tracking closes it up too far. */
+  letter-spacing: -0.005em;
   text-wrap: balance;
 }
 
@@ -132,12 +139,12 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22e
 
 .eyebrow {
   font-family: var(--body);
-  font-size: var(--step--1);
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--accent-ink);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .section-head { max-width: var(--measure); margin-bottom: clamp(2.5rem, 5vw, 4rem); }
@@ -172,14 +179,14 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22e
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
 
-.btn--primary { background: var(--accent-ink); color: #fdf8f2; }
-.btn--primary:hover { background: var(--ink); }
+.btn--primary { background: var(--ink); color: var(--ground); }
+.btn--primary:hover { background: var(--accent-ink); }
 
 .btn--ghost { border-color: var(--rule-strong); color: var(--ink); }
 .btn--ghost:hover { border-color: var(--ink); background: transparent; }
 
-.section--deep .btn--primary { background: var(--accent-lift); color: #241e2b; }
-.section--deep .btn--primary:hover { background: var(--on-deep); }
+.section--deep .btn--primary { background: var(--on-deep); color: var(--ground-deep); }
+.section--deep .btn--primary:hover { background: var(--accent-lift); }
 .section--deep .btn--ghost { border-color: rgba(242, 235, 226, 0.34); color: var(--on-deep); }
 .section--deep .btn--ghost:hover { border-color: var(--on-deep); }
 
