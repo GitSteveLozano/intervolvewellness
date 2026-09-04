@@ -225,8 +225,9 @@ export const about = {
   eyebrow: 'About',
   heading: 'Eileen Silot',
   paragraphs: [
-    'TODO — how she came to this work. Personal, specific, first person. This is the paragraph people book on.',
-    'TODO — her nursing background and her hypnotherapy training, and what carrying a clinical grounding into this room changes.',
+    'I came to this work through my own health. At nineteen I survived a near-death experience that split my life into before and after, and for years I numbed what it opened in me with alcohol — not because I didn’t want to face it, but because I didn’t yet have the resources to. My health suffered for it. So did my relationships: I was so reactive and dysregulated that I kept hurting myself and the people closest to me without understanding why.',
+    'Eventually I got tired of feeling sick and cycling through specialists with no real answers. What I didn’t understand yet was that my body was storing all of it, waiting for someone to address the root instead of the symptom. That exhaustion is what made me start saying yes to healing — and it led me, eventually, to hypnotherapy, where I found a way to rewire the patterns willpower alone could not touch, and build new ones that actually held.',
+    'My training gave me a way to work at that level, meeting the nervous system where it actually lives instead of managing symptoms one body part at a time. Carrying an RN background into this room changes what happens in it. I know what dysregulation looks like physiologically, not just anecdotally. I know when something needs a referral rather than a session. And I know how to hold someone through real, sometimes destabilizing change without either of us losing the thread of safety.',
     'At Intervolve, every part of you is met with care. In a space rooted in safety and intention, healing unfolds at your own pace, allowing true evolution to emerge.',
   ],
   /**
@@ -261,7 +262,7 @@ export const faq = {
       a: 'No. Hypnosis is a state of focused attention, not sleep, and you keep every bit of your own judgement. You will be awake, aware, able to speak, and able to stop at any point. We talk to each other the whole way through — that is what makes the work yours rather than something done to you.',
     },
     {
-      q: 'What if I cannot be hypnotised?',
+      q: 'What if I cannot be hypnotized?',
       a: 'It is a state most people move into readily, and it is closer to ordinary experience than it sounds — losing an hour in a book, or arriving somewhere without remembering the drive. You are not required to produce anything. I guide, and we work with whatever comes.',
     },
     {
